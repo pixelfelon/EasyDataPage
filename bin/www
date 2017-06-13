@@ -28,8 +28,8 @@ var server = http.createServer(app);
 
 
 if (fs.existsSync('../keys/')) {
-  var privateKey = fs.readFileSync('../keys/privatekey.pem').toString();
-  var certificate = fs.readFileSync('../keys/certificate.pem').toString();
+  var privateKey = fs.readFileSync('../keys/privkey.pem').toString();
+  var certificate = fs.readFileSync('../keys/cert.pem').toString();
   var credentials = crypto.createCredentials({key: privateKey, cert: certificate});
   server.setSecure(credentials);
 }
