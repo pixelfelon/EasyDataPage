@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+	<head>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+		<link rel="stylesheet" href="/stylesheets/graphs.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="/javascripts/jquery.min.js"><\/script>')</script>
+		<script>
+			var preload = <%- JSON.stringify(preload) %>;
+			var stations = <%- JSON.stringify(stations) %>;
+		</script>
+		<script src="/javascripts/graphs.js"></script>
+	</head>
+	<body>
+		<div id="action-c">
+			<button id="action" onclick="$('#graphs').toggleClass('reveal');"></button>
+		</div>
+		<div id="graphs"></div>
+	</body>
+</html>

@@ -19,6 +19,7 @@ function setupPrompt(){
 	} else if (!ready) {
 		ready = true;
 		prepare();
+		sendFeel(0);
 	}
 }
 
