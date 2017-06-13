@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var sqlite3 = require('sqlite3').verbose();
 
 var index = require('./routes/index');
+var buttons = require('./routes/buttons');
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/buttons', buttons);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
