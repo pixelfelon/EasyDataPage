@@ -7,33 +7,41 @@
 var app = require('../app');
 var debug = require('debug')('src:server');
 var http = require('http');
+var https = require('https');
 var crypto = require('crypto'),
-  fs = require("fs");
+ fs = require("fs");
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = '80';
-if (fs.existsSync('../keys/')) {
-  port = '443';
-}
+var port = '443';
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server;
 
 
-if (fs.existsSync('../keys/')) {
-  var privateKey = fs.readFileSync('../keys/privkey.pem').toString();
-  var certificate = fs.readFileSync('../keys/cert.pem').toString();
-  var credentials = crypto.createCredentials({key: privateKey, cert: certificate});
-  server.setSecure(credentials);
+if (fs.existsSync('keys')) {
+  var privateKey = fs.readFileSync('keys/privkey.pem');
+  var certificate = fs.readFileSync('keys/cert.pem');
+  var options = {key: privateKey,cert: certificate};
+  server = https.createServer(options, app);// set up plain http server
+//var http = express.createServer();
+
+// set up a route to redirect http to https
+//http.get('*',function(req,res){  
+ //   res.redirect('https://mydomain.com'+req.url)
+//})
+
+// have it listen on 8080
+//http.listen(8080);
+}else{
+  server = http.createServer(app);
 }
-
 
 /**
  * Listen on provided port, on all network interfaces.
