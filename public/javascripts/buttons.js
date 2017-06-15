@@ -4,14 +4,13 @@ var thanksNextTimeout = null;
 
 $(setupPrompt);
 
-function setupPrompt(force){
-	force = typeof force !== 'undefined' ? force : false
-	console.log(force);
+function setupPrompt(force) {
+	force = typeof force !== 'undefined' ? force : false;
 	
-	if(force === true){
+	if (force === true) {
 		station = "";
 		token = "";
-	}else{
+	} else {
 		station = window.localStorage.getItem('auth-station');
 		if (station === null) station = "";
 		
@@ -33,29 +32,29 @@ function setupPrompt(force){
 			ready = true;
 			prepare();
 		}
-		sendFeel(0, function(){
+		sendFeel(0, function() {
 			window.localStorage.setItem('auth-station', station);
 			window.localStorage.setItem('auth-token', token);
 		});
 	}
 }
 
-function prepare(){
+function prepare() {
 	$('#content').addClass('active');
-	$('.button').each(function(){
+	$('.button').each(function() {
 		var button = $(this);
 		var inter = button.attr('id').match(/^b-([0-9]+)$/);
 		if (inter === null) return;
 		var id = parseInt(inter[1]);
-		button.attr('data-button-id', id)
-		button.click(function(){
+		button.attr('data-button-id', id);
+		button.click(function() {
 			sendFeel(parseInt($(this).attr('data-button-id')));
 		});
 	});
 }
 
-function sendFeel(id, callback){
-	callback = typeof callback === 'function' ? callback : function(){}
+function sendFeel(id, callback) {
+	callback = typeof callback === 'function' ? callback : function(){};
 	
 	if (!(station && token)) {
 		alert("Both the station ID and auth token must be configured to use this page.");
@@ -74,7 +73,7 @@ function sendFeel(id, callback){
 		method: "POST",
 		url: "/button",
 		
-		success: function(data){
+		success: function(data) {
 			if (data.error) {
 				switch (data.error) {
 					case "invalid station":
@@ -88,7 +87,7 @@ function sendFeel(id, callback){
 						console.error("Server error: "+data.error);
 						break;
 				}
-			}else{
+			} else {
 				callback();
 			}
 		}
@@ -98,13 +97,21 @@ function sendFeel(id, callback){
 }
 
 function showThanks(){
-	if(thanksNextTimeout !== null) {
+	if (thanksNextTimeout !== null) {
 		window.clearTimeout(thanksNextTimeout);
 		thanksNextTimeout = null;
 	}
 	var thanks = $("#thanks-msg");
 	thanks.addClass("active");
-	thanksNextTimeout = window.setTimeout(function(){
+	thanksNextTimeout = window.setTimeout(function() {
 		thanks.removeClass("active");
 	}, 1500);
+}
+
+function toggleFullscreen() {
+	if (window.fscreen.fullscreenElement !== null) {
+		window.fscreen.exitFullscreen();
+	} else {
+		window.fscreen.requestFullscreen(document.documentElement);
+	}
 }
