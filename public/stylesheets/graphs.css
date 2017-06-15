@@ -20,13 +20,11 @@
 }
 
 .graph h1{
-	position: absolute;
-	top: 3%;
-	left: 0;
 	display: block;
 	height: 10%;
 	width: 100%;
-	font-size: 4vw;
+	font-size: 7vh;
+	vertical-align: top;
 	margin: 0;
 	text-align: center;
 	opacity: 0;
@@ -35,16 +33,8 @@
 	max-width: 100%;
 	white-space: nowrap;
 }
-#graphs.reveal .graph h1{
+.reveal .graph h1{
 	opacity: 1;
-}
-
-.bars{
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-	height: 80%;
-	margin-top: 10%;
 }
 
 .keys{
@@ -53,8 +43,9 @@
 	flex-direction: row;
 	opacity: 0;
 	transition: opacity 0.5s;
+	padding: 10px;
 }
-#graphs.reveal .keys{
+.reveal .keys{
 	opacity: 1;
 }
 
@@ -85,14 +76,22 @@
 	background-image: url('/images/feeling-5.png');
 }
 
+.bars{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	height: 80%;
+	padding: 10px;
+}
+
 .bar{
 	box-sizing: border-box;
 	display: flex;
 	height: 50%;
 	width: 15%;
 	max-width: 100px;
-	margin: 10px auto;
-	background: #f00;
+	margin: 0 auto;
+	background: #ff390c;
 }
 
 
