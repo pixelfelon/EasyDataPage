@@ -6,28 +6,34 @@ function freq(data) {
 			frequency[station][i] = 0;
 		}
 		
-		var max = 0;
 		for (var i = 0; i < data[station].length; i++) {
 			frequency[station][data[station][i]]++;
-			max = Math.max(max, frequency[station][data[station][i]]);
-		}
-		
-		for (var i = 1; i <= 5; i++) {
-			if (max == 0) {
-				frequency[station][i] = 0;
-				continue;
-			}
-			frequency[station][i] /= max;
-			frequency[station][i] *= 100;
 		}
 	}
 	return frequency;
+}
+
+function normalize(data) {
+	var max = -999999999;
+	for (var i in data) {
+		max = Math.max(max, data[i]);
+	}
+	var out = {};
+	for (var i in data) {
+		if (max == 0) {
+			out[i] = 0;
+			continue;
+		}
+		out[i] = (data[i] / max) * 100;
+	}
+	return out;
 }
 
 var graphs = {};
 var titles = {};
 var keys = {};
 var bars = {};
+var values = {};
 
 function getStationLabel(nameOrId) {
 	for (var i = 0; i < stations.length; i++) {
@@ -47,8 +53,12 @@ function setup(data) {
 		var keycont = $("<div class=\"keys\"></div>").appendTo(graphs[station]);
 		keys[station] = {};
 		bars[station] = {};
+		values[station] = {};
 		for (var i = 1; i <= 5; i++) {
 			bars[station][i] = $("<div class=\"bar\"></div>").appendTo(barcont);
+		}
+		for (var i = 1; i <= 5; i++) {
+			values[station][i] = $("<span class=\"value\"></span>").appendTo(bars[station][i]);
 		}
 		for (var i = 1; i <= 5; i++) {
 			keys[station][i] = $("<div class=\"key k"+i+"\"></div>").appendTo(keycont);
@@ -59,8 +69,12 @@ function setup(data) {
 function populate(data) {
 	data = freq(data);
 	for (var station in data) {
+		pctHt = normalize(data[station]);
 		for (var i = 1; i <= 5; i++) {
-			bars[station][i].css('height', data[station][i]+'%');
+			bars[station][i].css('height', pctHt[i]+'%');
+		}
+		for (var i = 1; i <= 5; i++) {
+			values[station][i].html(data[station][i]);
 		}
 	}
 }

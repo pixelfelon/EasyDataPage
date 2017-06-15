@@ -91,6 +91,23 @@
 	max-width: 100px;
 	margin: 0 auto;
 	background: #ff390c;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.value{
+	display: block;
+	font-size: 40px;
+	line-height: 40px;
+	height: 40px;
+	opacity: 0;
+	transition: opacity 0.5s;
+	margin: 20px 0;
+	text-align: center;
+	font-weight: bolder;
+}
+.reveal .value{
+	opacity: 1;
 }
 
 
