@@ -4,22 +4,39 @@ var thanksNextTimeout = null;
 
 $(setupPrompt);
 
-function setupPrompt(){
-	station = "";
-	token = "";
+function setupPrompt(force){
+	force = typeof force !== 'undefined' ? force : false
+	console.log(force);
 	
-	while (station == "") {
+	if(force === true){
+		station = "";
+		token = "";
+	}else{
+		station = window.localStorage.getItem('auth-station');
+		if (station === null) station = "";
+		
+		token = window.localStorage.getItem('auth-token');
+		if (token === null) token = "";
+	}
+	
+	while (station === "") {
 		station = prompt("Enter button station name.");
 	}
-	while (token == "") {
+	while (token === "") {
 		token = prompt("Enter authentication token.");
 	}
+	
 	if (station === null || token === null) {
 		alert("Both the station ID and auth token must be configured to use this page. You can re-run this prompt from the menu in the upper right.");
-	} else if (!ready) {
-		ready = true;
-		prepare();
-		sendFeel(0);
+	} else {
+		if (!ready) {
+			ready = true;
+			prepare();
+		}
+		sendFeel(0, function(){
+			window.localStorage.setItem('auth-station', station);
+			window.localStorage.setItem('auth-token', token);
+		});
 	}
 }
 
@@ -37,8 +54,9 @@ function prepare(){
 	});
 }
 
-function sendFeel(id){
-	console.log("Sending a "+id+"!");
+function sendFeel(id, callback){
+	callback = typeof callback === 'function' ? callback : function(){}
+	
 	if (!(station && token)) {
 		alert("Both the station ID and auth token must be configured to use this page.");
 		setupPrompt();
@@ -62,15 +80,20 @@ function sendFeel(id){
 					case "invalid station":
 					case "invalid token":
 						alert("The server did not accept your configuration. Please re-enter.");
-						setupPrompt();
+						window.localStorage.removeItem('auth-station');
+						window.localStorage.removeItem('auth-token');
+						setupPrompt(true);
 						break;
 					default:
 						console.error("Server error: "+data.error);
 						break;
 				}
+			}else{
+				callback();
 			}
 		}
 	});
+	
 	showThanks();
 }
 
