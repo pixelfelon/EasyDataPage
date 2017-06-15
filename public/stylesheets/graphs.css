@@ -96,14 +96,21 @@
 }
 
 
-#action-c {
+#action-c{
 	position: absolute;
 	top: 0px;
 	right: 0px;
 	width: 64px;
-	height: 64px;
+	height: 116px;
+	transition: opacity 0.15s;
+	opacity: 0;
+	z-index: 100;
 }
-#action{
+#action-c:hover{
+	opacity: 1;
+}
+
+#showhide, #buttons-link{
 	display: block;
 	position: fixed;
 	width: 40px;
@@ -113,10 +120,10 @@
 	border: none;
 	background: url('/images/action.png');
 	cursor: pointer;
-	transition: right 0.5s, opacity 0.15s;
-	opacity: 0;
+	transition: right 0.5s;
 	z-index: 200;
 }
-#action-c:hover #action{
-	opacity: 1;
+#buttons-link{
+	top: 64px;
+	background: url('/images/buttons.png');
 }
