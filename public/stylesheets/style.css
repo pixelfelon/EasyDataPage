@@ -20,7 +20,7 @@ html, body{
 	height: 64px;
 }
 
-#menu input {
+#menu input#handle {
 	display: block;
 	position: fixed;
 	width: 40px;
@@ -35,10 +35,10 @@ html, body{
 	opacity: 0;
 	z-index: 200;
 }
-#menu:hover input{
+#menu:hover input#handle{
 	opacity: 1;
 }
-#menu input:checked{
+#menu input#handle:checked{
 	background: url('/images/close.png');
 	right: 313px;
 	opacity: 1;
@@ -57,7 +57,7 @@ html, body{
 	transition: right 0.5s;
 	z-index: 100;
 }
-#menu input:checked + div{
+#menu input#handle:checked + div{
 	right: 0;
 }
 
@@ -117,4 +117,32 @@ html, body{
 	background: #f8f8f8;
 	border-top: 1px solid #666;
 	box-shadow: inset 0 -4px 12px -8px black;
+}
+
+#action-c{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 64px;
+	height: 116px;
+	transition: opacity 0.15s;
+	opacity: 0;
+	z-index: 100;
+}
+#action-c:hover{
+	opacity: 1;
+}
+
+#content-link{
+	display: block;
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	right: 12px;
+	top: 12px;
+	border: none;
+	background: url('/images/action.png');
+	cursor: pointer;
+	transition: right 0.5s;
+	z-index: 200;
 }
