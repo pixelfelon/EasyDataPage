@@ -23,10 +23,14 @@ function updateSplash(htmlContent, callback) {
 function computeData(data, operation, callback) {
 	$.post(
 		"/actions/compute",
-		{data: data, operation: operation},
+		{data: parseInt(data), operation: operation},
 		function(result){
-			if (typeof callback === 'function') callback(result);
+			if (result.error) {
+				console.log(result.error);
+				return;
+			}
+			if (typeof callback === 'function') callback(result.result);
 		},
-		"text"
+		"json"
 	);
 }
