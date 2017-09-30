@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 router.post('/compute', function(req, res) {
 	if (!(req.body.data && req.body.operation)) {
 		res.status(400);
-		res.send({error: 'malformed request'})
+		res.send({error: 'malformed request'});
 		console.log(req.body);
 		return;
 	}
@@ -32,7 +32,7 @@ router.post('/compute', function(req, res) {
 			break;
 		default:
 			res.status(400);
-			res.send({error: 'invalid operation'})
+			res.send({error: 'invalid operation'});
 			return;
 	}
 	
@@ -43,7 +43,7 @@ router.post('/compute', function(req, res) {
 router.post('/splash', function(req, res) {
 	if (typeof req.body.content !== 'string') {
 		res.status(400);
-		res.send({error: 'malformed request'})
+		res.send({error: 'malformed request'});
 		return;
 	}
 	
