@@ -9,6 +9,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sqlite3 = require('sqlite3');
 
+// Set up database, possible initial configuration
+var db = new sqlite3.Database("splashes.db");
+db.serialize(function(){
+	db.run("CREATE TABLE IF NOT EXISTS splashes (id INTEGER, content TEXT, PRIMARY KEY(`id`));");
+});
 
 // Boilerplate: general setup
 var app = express();

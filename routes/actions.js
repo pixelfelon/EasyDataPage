@@ -17,7 +17,7 @@ router.post('/compute', function(req, res) {
 /* Set splash screen. */
 router.post('/splash', function(req, res) {
 	var stmt = db.prepare('INSERT INTO splashes (content) VALUES ((?));');
-	stmt.run(req.content);
+	stmt.run(req.body.content);
 	stmt.finalize();
 	
 	res.send();
