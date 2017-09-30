@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+//Quick note: Most of this code was adapted from various Node webserver samples found somewhere on
+//the internet, quite a while ago. So someone out there deserves credit for it!
 
 /**
  * Module dependencies.
