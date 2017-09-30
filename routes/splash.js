@@ -10,7 +10,7 @@ function getSplashContent(id, after) {
 	}
 	
 	db.all(query, function(err, content){
-		if(!err) after(content);
+		if(!err) after(content[0]);
 	});
 }
 
@@ -24,7 +24,8 @@ router.get('/', function(req, res, next) {
 /* Retrieve splash content */
 router.get('/splashcontent', function(req, res, next) {
 	getSplashContent(null, function(content){
-		res.send(content);
+		res.type('html');
+		res.send(content.content);
 	});
 });
 
