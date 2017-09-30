@@ -1,9 +1,5 @@
 $(function(){
-	$("#goCompute").click(function(){
-		computeData($("#computeData").val(), $("#computeOperation").val(), function(result){
-			$("#computeResult").text(result).show();
-		});
-	});
+	//TODO: Add page interactions for "Compute" card
 	
 	$("#setSplash").click(function(){
 		updateSplash($("#splashContent").val());
@@ -20,17 +16,4 @@ function updateSplash(htmlContent, callback) {
 	);
 }
 
-function computeData(data, operation, callback) {
-	$.post(
-		"/actions/compute",
-		{data: parseInt(data), operation: operation},
-		function(result){
-			if (result.error) {
-				console.log(result.error);
-				return;
-			}
-			if (typeof callback === 'function') callback(result.result);
-		},
-		"json"
-	);
-}
+//TODO: Add function to interact with "Compute" feature of server

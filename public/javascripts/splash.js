@@ -1,15 +1,8 @@
 $(function(){
-	setSplash(preload.content);
-	window.setInterval(checkSplashContent, 5000);
+	//TODO: Display preload and check for new splash content
 });
 
-function checkSplashContent() {
-	$.get(
-		"/splashcontent",
-		setSplash,
-		"html"
-	);
-}
+//TODO: Provide function to check server for splash content
 
 function setSplash(content) {
 	$("#content").html(content);

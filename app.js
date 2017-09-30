@@ -9,7 +9,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sqlite3 = require('sqlite3');
 
-// Set up database, possible initial configuration
+// TODO: Set up database and table
 var db = new sqlite3.Database("splashes.db");
 db.serialize(function(){
 	db.run("CREATE TABLE IF NOT EXISTS splashes (id INTEGER, content TEXT, PRIMARY KEY(`id`));");
@@ -25,21 +25,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set up our routes
+// TODO: Set up our routes
 app.use('/', require('./routes/splash'));
 app.use('/actions', require('./routes/actions'));
 
 // Boilerplate: error handling
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 app.use(function(err, req, res, next) {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(err.status || 500);
-  res.render('error');
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
+	res.status(err.status || 500);
+	res.render('error');
 });
 
 module.exports = app;
