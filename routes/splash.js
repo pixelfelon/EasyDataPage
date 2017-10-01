@@ -4,8 +4,14 @@ var router = express.Router();
 var db = new sqlite3.Database("splashes.db");
 
 function getSplashContent(id, after) {
-	// TODO: Actually get content
-	after(null);
+	var query = 'SELECT content FROM splashes ORDER BY id DESC LIMIT 1;';
+	if (typeof id === 'number') {
+		query = 'SELECT content FROM splashes WHERE id=\''+id+'\' LIMIT 1;';
+	}
+	
+	db.all(query, function(err, content){
+		if(!err) after(content[0]);
+	});
 }
 
 /* GET home page. */
@@ -15,6 +21,12 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-/* TODO: endpoint to retrieve splash content */
+/* Retrieve splash content */
+router.get('/splashcontent', function(req, res, next) {
+	getSplashContent(null, function(content){
+		res.type('html');
+		res.send(content.content);
+	});
+});
 
 module.exports = router;

@@ -14,7 +14,6 @@ router.post('/compute', function(req, res) {
 	if (!(req.body.data && req.body.operation)) {
 		res.status(400);
 		res.send({error: 'malformed request'});
-		console.log(req.body);
 		return;
 	}
 	
